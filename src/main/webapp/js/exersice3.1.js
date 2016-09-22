@@ -1,8 +1,40 @@
-//1. Create 3 divs next to each other in the HTML page
+var body = document.getElementsByTagName("body")[0];
+//
+////1. Create 3 divs next to each other in the HTML page
 //a. Give them a height and width of 100px and different background colors.
 //b. Hide the first div when it is clicked.
 //c. Change the border size to 4 of the second div when it is hovered.
 //d. Change font size on the third when the second one is being clicked.
+function generateDivs() {
+    var colors = ["yellow", "lightgreen", "lightblue"];
+
+    colors.forEach(function (color) {
+        var d = document.createElement("div");
+        d.style.height = "100px";
+        d.style.width = "100px";
+        d.style.backgroundColor = color;
+        d.id = color;
+        d.innerHTML = "this is a div";
+        body.appendChild(d);
+    });
+}
+
+generateDivs();
+// b
+$("#yellow").click(function(){
+    $(this).hide();
+});
+// c
+$("#lightgreen").hover(function(){
+    $(this).css({"border-color": "black", 
+             "border-width":"4px", 
+             "border-style":"solid"});
+});
+//d
+$("#lightblue").click(function(){
+    $(this).css({"font-family": "impact" });
+});
+
 
 //2. Create 9 divs (3x3) and give each a number inside
 //a. Iterate over the div element and add click event handlers

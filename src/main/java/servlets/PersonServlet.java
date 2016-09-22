@@ -5,11 +5,13 @@
  */
 package servlets;
 
+import classs.Person;
+import classs.PersonFacade;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rasmus
  */
-@WebServlet(name = "QuoteServlet", urlPatterns = {"/QuoteServlet"})
-public class QuoteServlet extends HttpServlet {
+@WebServlet(name = "PersonServlet", urlPatterns = {"/persons"})
+public class PersonServlet extends HttpServlet {
 
+    static Gson gson = new Gson();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,11 +37,13 @@ public class QuoteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application&json;charset=UTF-8");
+        List<Person> persons = PersonFacade.getInstance().getPersons();
+        String json = gson.toJson(persons);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println(new Date().toString());
-            
+            out.println(json);
+
         }
     }
 
