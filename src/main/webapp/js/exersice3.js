@@ -22,18 +22,18 @@ function generateDivs() {
 
 generateDivs();
 // b
-$("#yellow").click(function(){
+$("#yellow").click(function () {
     $(this).hide();
 });
 // c
-$("#lightgreen").hover(function(){
-    $(this).css({"border-color": "black", 
-             "border-width":"4px", 
-             "border-style":"solid"});
+$("#lightgreen").hover(function () {
+    $(this).css({"border-color": "black",
+        "border-width": "4px",
+        "border-style": "solid"});
 });
 //d
-$("#lightblue").click(function(){
-    $(this).css({"font-family": "impact" });
+$("#lightblue").click(function () {
+    $(this).css({"font-family": "impact"});
 });
 
 //2. Create 9 divs (3x3) and give each a number inside
@@ -68,19 +68,104 @@ $("li").each(function (index) {
 //a. Create a function that will swap the pictures around
 //b. Apply the function whenever an image is clicked
 
-$("#pic").click(function(){
+$('.myPic').click(function () {
     console.log("img clicked")
-    $("#pic").each(function () {
-        $(this).insertBefore($(this).prev('.div1'));
-    });    
+    $('.myPic').each(function () {
+        $(this).insertBefore($(this).prev('.myPic'));
+    });
 });
+
+//RANDOMIZER (virker næsten)
+//$("#pics").click(function randsort(c) {
+//   var list = document.getElementsByClassName("myPic");
+//    for (var i = 0; i < c; i++) {
+//        var n = Math.floor(Math.random()*c);
+//        if( jQuery.inArray(n, list) > 0 ) --i;
+//        else list.push(n);
+//    }
+//    console.log(list.toString());
+//    var picDiv = document.getElementById("pics");
+//    for(i=0;i<list.lenght;i++){
+//        console.log(list[i].toString());
+//        picDiv.appendChild(document.createElement(list[i]));
+//    };
+//    
+//});
 
 //5. Create a form with input fields for user registration
 //a. Using jquery check that all input fields have been filled out
 //b. If not insert a message in red writing inside the input field that was not filled.
 //c. Make sure the submit button is disabled as long as not all fields are filled.
 
+// ubrugt kode....
+//// userName can't be blank
+//$('#input1').on('input', function () {
+//    var input = $(this);
+//    var is_name = input.val();
+//    if (is_name) {
+//        console.log("must enter un")
+//    } else {
+//        input.removeClass("valid").addClass("invalid");
+//    }
+//});
+
+$(document).ready(function () {
+    $form = $("<form id=myForm action='javascript:;'></form>");
+    var username = document.getElementById("input1"); //$form.append('<input type="text" value="username">');
+    var email = document.getElementById("input2"); //$form.append('<input type="text" value="email">');
+    var password = document.getElementById("input3");//$form.append('<input type="text" value="password">');
+    username.click(function () {
+        $(":submit").removeAttr("disabled");
+        username.css('color', '');
+    });
+    email.click(function () {
+        $(":submit").removeAttr("disabled");
+        email.css('color', '');
+    });
+    password.click(function () {
+        $(":submit").removeAttr("disabled");
+        password.css('color', '');
+    });
+    $('body').append($form);
+    $('#myForm').submit(function () {
+        var elements = [];
+        $(':input').each(function () {
+            elements.push($(this));
+        });
+        elements;
+        for (var i = 0; i < elements.length - 1; i++) {
+            if (elements[i].val() === "") {
+                elements[i].css("color", "red");
+                elements[i].val("INVALID!");
+                $(":submit").attr("disabled", true);
+            }
+        }
+    });
+});
+
 //6. Take an array of person objects and iterate over them.
 //a. Insert all attributes of each object in a table that you create with jquery.
 //b. Make an eventhandler for mouseover event on each table row, so that when hovering over
 //a person object the text becomes bold and italic.
+
+$(document).ready(function () {
+    function person(n, e, g) {
+        this.name = n;
+        this.email = e;
+        this.gender = g;
+    }
+
+    var persons = [new person("bob", "bob@mail.dk", "Male"), new person("alice", "al@hotmail.com", "Female"), new person("joe", "joe@gmail.com", "Male")];
+
+    $("#ex36").append('<table border="1" id="pTable"><thead><tr><th>Name</th><th>Email</th><th>Gender</th></tr></thead><tbody></tbody></table>');
+
+    for (var i = 0; i < persons.length; i++) {
+        !function (i) {
+            $('#pTable').append('<tr id=row' + i + '><td>' + persons[i].name + '</td><td>' + persons[i].email + '</td><td>' + persons[i].gender + '</td></tr>');
+            $("#row" + i).hover(function () {
+                $("#row" + i).css('font-style', 'italic');
+                $("#row" + i).css('font-weight', 'bold');
+            });
+        }(i);
+    }
+});

@@ -12,6 +12,8 @@ $(document).on("click", "#qBtn", function () {
     $("#qDiv").load("../QuoteServlet");
 });
 
+
+//load speed er sat op til 2 sekunder -bare så man kan se at det virker uden at vente en time....-
 var tid = setInterval(mycode, 2000);
 function mycode() {
   $("#qDiv").load("../QuoteServlet");

@@ -37,7 +37,10 @@ public class QuoteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println(new Date().toString());
+            
+            //hvis tiden havde været der ville jeg ha' lavet en switch på nogle 
+            //rigtige quotes... her demonstrere jeg hvad opgaven går ud på.
+            out.println("this is a very nice quote " + new Date().toString());
             
         }
     }
